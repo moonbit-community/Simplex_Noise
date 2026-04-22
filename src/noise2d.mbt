@@ -15,15 +15,15 @@ fn simplex2d(
   let s = (nx + ny).to_double() * f2
   let i = @math.floor(nx.to_double() + s).to_int()
   let j = @math.floor(ny.to_double() + s).to_int()
-  let t = (i.to_float() + j.to_float()) * g2.to_float()
+  let t = (Float::from_int(i) + Float::from_int(j)) * Float::from_double(g2)
 
-  let x0 = nx - (i.to_float() - t)
-  let y0 = ny - (j.to_float() - t)
+  let x0 = nx - (Float::from_int(i) - t)
+  let y0 = ny - (Float::from_int(j) - t)
   let (i1, j1) = if x0 > y0 { (1, 0) } else { (0, 1) }
-  let x1 = x0 - (i1.to_double() + g2).to_float()
-  let y1 = y0 - (j1.to_double() + g2).to_float()
-  let x2 = x0 - 1.0 + 2.0 * g2.to_float()
-  let y2 = y0 - 1.0 + 2.0 * g2.to_float()
+  let x1 = x0 - Float::from_double(i1.to_double() + g2)
+  let y1 = y0 - Float::from_double(j1.to_double() + g2)
+  let x2 = x0 - 1.0 + 2.0 * Float::from_double(g2)
+  let y2 = y0 - 1.0 + 2.0 * Float::from_double(g2)
 
   let gi0 = hash(i, j, perm_table, grads)
   let gi1 = hash(i + i1, j + j1, perm_table, grads)
@@ -52,7 +52,7 @@ fn simplex2d(
   }
 
   // 缩放到 [-1, 1] 范围
-  20 * (n0 + n1 + n2).to_float()
+  20 * Float::from_double(n0 + n1 + n2)
 }
 
 

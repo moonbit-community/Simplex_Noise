@@ -27,7 +27,7 @@ fn hsl_to_rgb(h : Float, s : Float, l : Float) -> (Byte, Byte, Byte) {
   } else {
     (c, 0.0, x)
   }
-  let m = l - c.to_float() * 0.5
+  let m = l - Float::from_double(c) * 0.5
   fn to_byte_safe(v : Float) -> Byte {
     let p = 0
     let q = 255
@@ -41,9 +41,9 @@ fn hsl_to_rgb(h : Float, s : Float, l : Float) -> (Byte, Byte, Byte) {
     }
   }
 
-  let r = to_byte_safe(r1.to_float() + m)
-  let g = to_byte_safe(g1.to_float() + m)
-  let b = to_byte_safe(b1.to_float() + m)
+  let r = to_byte_safe(Float::from_double(r1) + m)
+  let g = to_byte_safe(Float::from_double(g1) + m)
+  let b = to_byte_safe(Float::from_double(b1) + m)
   (r, g, b)
 }
 
@@ -80,10 +80,10 @@ fn generate_noise_png_buffer(
       for x in 0..<width {
         let val = if useWarp {
           // 使用 warp2d（如果 useWarp 为 true）
-          warp2d(grads, [x.to_float(), y.to_float()], seed, scale, strength)
+          warp2d(grads, [Float::from_int(x), Float::from_int(y)], seed, scale, strength)
         } else {
           // 使用 simplex2d（如果 useWarp 为 false）
-          simplex2d([x.to_float(), y.to_float()], perm_table, grads, scale)
+          simplex2d([Float::from_int(x), Float::from_int(y)], perm_table, grads, scale)
         }
         // 将噪声值映射到灰度范围
         let raw_val = (val + 1.0) * 0.5 * 255.0
@@ -103,9 +103,9 @@ fn generate_noise_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp2d(grads, [x.to_float(), y.to_float()], seed, scale, strength)
+          warp2d(grads, [Float::from_int(x), Float::from_int(y)], seed, scale, strength)
         } else {
-          simplex2d([x.to_float(), y.to_float()], perm_table, grads, scale)
+          simplex2d([Float::from_int(x), Float::from_int(y)], perm_table, grads, scale)
         }
         let normalized_val = (val + 1.0) * 0.5
         let color = noise_to_color(normalized_val)
@@ -142,7 +142,7 @@ fn generate_fbm_png_buffer(
         let val = if useWarp {
           warp_fbm2d(
             grads,
-            [x.to_float(), y.to_float()],
+            [Float::from_int(x), Float::from_int(y)],
             seed,
             scale,
             strength,
@@ -152,7 +152,7 @@ fn generate_fbm_png_buffer(
           )
         } else {
           fbm2d(
-            [x.to_float(), y.to_float()],
+            [Float::from_int(x), Float::from_int(y)],
             octaves,
             persistence,
             lacunarity,
@@ -180,7 +180,7 @@ fn generate_fbm_png_buffer(
         let val = if useWarp {
           warp_fbm2d(
             grads,
-            [x.to_float(), y.to_float()],
+            [Float::from_int(x), Float::from_int(y)],
             seed,
             scale,
             strength,
@@ -190,7 +190,7 @@ fn generate_fbm_png_buffer(
           )
         } else {
           fbm2d(
-            [x.to_float(), y.to_float()],
+            [Float::from_int(x), Float::from_int(y)],
             octaves,
             persistence,
             lacunarity,
@@ -229,9 +229,9 @@ fn generate_noise3d_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp3d(grads, [x.to_float(), y.to_float(), z], seed, scale, strength)
+          warp3d(grads, [Float::from_int(x), Float::from_int(y), z], seed, scale, strength)
         } else {
-          simplex3d([x.to_float(), y.to_float(), z], perm_table, grads, scale)
+          simplex3d([Float::from_int(x), Float::from_int(y), z], perm_table, grads, scale)
         }
         let raw_val = (val + 1.0) * 0.5 * 255.0
         let gray_val = if raw_val < 0.0 {
@@ -250,9 +250,9 @@ fn generate_noise3d_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp3d(grads, [x.to_float(), y.to_float(), z], seed, scale, strength)
+          warp3d(grads, [Float::from_int(x), Float::from_int(y), z], seed, scale, strength)
         } else {
-          simplex3d([x.to_float(), y.to_float(), z], perm_table, grads, scale)
+          simplex3d([Float::from_int(x), Float::from_int(y), z], perm_table, grads, scale)
         }
         let normalized_val = (val + 1.0) * 0.5
         let color = noise_to_color(normalized_val)
@@ -292,7 +292,7 @@ fn generate_fbm3d_png_buffer(
         let val = if useWarp {
           warp_fbm3d(
             grads,
-            [x.to_float(), y.to_float(), z],
+            [Float::from_int(x), Float::from_int(y), z],
             seed,
             scale,
             strength,
@@ -302,7 +302,7 @@ fn generate_fbm3d_png_buffer(
           )
         } else {
           fbm3d(
-            [x.to_float(), y.to_float(), z],
+            [Float::from_int(x), Float::from_int(y), z],
             octaves,
             persistence,
             lacunarity,
@@ -330,7 +330,7 @@ fn generate_fbm3d_png_buffer(
         let val = if useWarp {
           warp_fbm3d(
             grads,
-            [x.to_float(), y.to_float(), z],
+            [Float::from_int(x), Float::from_int(y), z],
             seed,
             scale,
             strength,
@@ -340,7 +340,7 @@ fn generate_fbm3d_png_buffer(
           )
         } else {
           fbm3d(
-            [x.to_float(), y.to_float(), z],
+            [Float::from_int(x), Float::from_int(y), z],
             octaves,
             persistence,
             lacunarity,
@@ -384,14 +384,14 @@ fn generate_noise4d_png_buffer(
         let val = if useWarp {
           warp4d(
             grads,
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             seed,
             scale,
             strength,
           )
         } else {
           simplex4d(
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             perm_table,
             grads,
             scale,
@@ -416,14 +416,14 @@ fn generate_noise4d_png_buffer(
         let val = if useWarp {
           warp4d(
             grads,
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             seed,
             scale,
             strength,
           )
         } else {
           simplex4d(
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             perm_table,
             grads,
             scale,
@@ -468,7 +468,7 @@ fn generate_fbm4d_png_buffer(
         let val = if useWarp {
           warp_fbm4d(
             grads,
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             seed,
             scale,
             strength,
@@ -478,7 +478,7 @@ fn generate_fbm4d_png_buffer(
           )
         } else {
           fbm4d(
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             octaves,
             persistence,
             lacunarity,
@@ -506,7 +506,7 @@ fn generate_fbm4d_png_buffer(
         let val = if useWarp {
           warp_fbm4d(
             grads,
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             seed,
             scale,
             strength,
@@ -516,7 +516,7 @@ fn generate_fbm4d_png_buffer(
           )
         } else {
           fbm4d(
-            [x.to_float(), y.to_float(), z, w],
+            [Float::from_int(x), Float::from_int(y), z, w],
             octaves,
             persistence,
             lacunarity,
@@ -552,7 +552,7 @@ fn generate_tileable_noise2d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float()]
+        let p = [Float::from_int(x), Float::from_int(y)]
         let val = tileable_noise2d(
           p, perm_table, grads, scale, width, height, pi,
         )
@@ -572,7 +572,7 @@ fn generate_tileable_noise2d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float()]
+        let p = [Float::from_int(x), Float::from_int(y)]
         let val = tileable_noise2d(
           p, perm_table, grads, scale, width, height, pi,
         )
@@ -603,7 +603,7 @@ fn generate_tileable_fbm2d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float()]
+        let p = [Float::from_int(x), Float::from_int(y)]
         let val = tileable_fbm2d(
           p,
           perm_table,
@@ -632,7 +632,7 @@ fn generate_tileable_fbm2d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float()]
+        let p = [Float::from_int(x), Float::from_int(y)]
         let val = tileable_fbm2d(
           p,
           perm_table,
@@ -674,7 +674,7 @@ fn generate_tileable_noise3d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z]
+        let p = [Float::from_int(x), Float::from_int(y), z]
         let val = tileable_noise3d(
           p, perm_table, grads, scale, width, height, depth, pi,
         )
@@ -694,7 +694,7 @@ fn generate_tileable_noise3d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z]
+        let p = [Float::from_int(x), Float::from_int(y), z]
         let val = tileable_noise3d(
           p, perm_table, grads, scale, width, height, depth, pi,
         )
@@ -727,7 +727,7 @@ fn generate_tileable_fbm3d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z]
+        let p = [Float::from_int(x), Float::from_int(y), z]
         let val = tileable_fbm3d(
           p,
           perm_table,
@@ -757,7 +757,7 @@ fn generate_tileable_fbm3d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z]
+        let p = [Float::from_int(x), Float::from_int(y), z]
         let val = tileable_fbm3d(
           p,
           perm_table,
@@ -802,7 +802,7 @@ fn generate_tileable_noise4d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z, w]
+        let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_noise4d(
           p,
           perm_table,
@@ -830,7 +830,7 @@ fn generate_tileable_noise4d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z, w]
+        let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_noise4d(
           p,
           perm_table,
@@ -873,7 +873,7 @@ fn generate_tileable_fbm4d_image(
     let img = @image.Gray::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z, w]
+        let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_fbm4d(
           p,
           perm_table,
@@ -904,7 +904,7 @@ fn generate_tileable_fbm4d_image(
     let img = @image.RGBA::new(bounds)
     for y in 0..<height {
       for x in 0..<width {
-        let p = [x.to_float(), y.to_float(), z, w]
+        let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_fbm4d(
           p,
           perm_table,

@@ -22,7 +22,7 @@ pub fn fbm2d(
     scale *= lacunarity
   }
 
-  (total / max_amplitude).to_float()
+  Float::from_double(total / max_amplitude)
 }
 
 
@@ -48,7 +48,7 @@ pub fn fbm3d(
     scale *= lacunarity
   }
 
-  (total / max_amplitude).to_float()
+  Float::from_double(total / max_amplitude)
 }
 
 pub fn fbm4d(
@@ -72,7 +72,7 @@ pub fn fbm4d(
     scale *= lacunarity
   }
 
-  (total / max_amplitude).to_float()
+  Float::from_double(total / max_amplitude)
 }
 
 
