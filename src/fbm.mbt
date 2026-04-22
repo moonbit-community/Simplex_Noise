@@ -1,6 +1,7 @@
 // octaves: 八度数，决定叠加层数
 // persistence: 振幅衰减因子
 // lacunarity: 频率增长因子
+///|
 pub fn fbm2d(
   p : Array[Float],
   octaves : Int,
@@ -8,7 +9,7 @@ pub fn fbm2d(
   lacunarity : Float,
   perm_table : Array[Int],
   grads : Array[Array[Float]],
-  base_scale : Float // 初始频率
+  base_scale : Float, // 初始频率
 ) -> Float {
   let mut total = 0.0
   let mut amplitude = 1.0
@@ -25,16 +26,15 @@ pub fn fbm2d(
   Float::from_double(total / max_amplitude)
 }
 
-
-
+///|
 pub fn fbm3d(
-  p: Array[Float],
-  octaves: Int,
-  persistence: Float,
-  lacunarity: Float,
-  perm_table: Array[Int],
-  grads: Array[Array[Float]],
-  base_scale: Float,
+  p : Array[Float],
+  octaves : Int,
+  persistence : Float,
+  lacunarity : Float,
+  perm_table : Array[Int],
+  grads : Array[Array[Float]],
+  base_scale : Float,
 ) -> Float {
   let mut total = 0.0
   let mut amplitude = 1.0
@@ -51,14 +51,15 @@ pub fn fbm3d(
   Float::from_double(total / max_amplitude)
 }
 
+///|
 pub fn fbm4d(
-  p: Array[Float],
-  octaves: Int,
-  persistence: Float,
-  lacunarity: Float,
-  perm_table: Array[Int],
-  grads: Array[Array[Float]],
-  base_scale: Float,
+  p : Array[Float],
+  octaves : Int,
+  persistence : Float,
+  lacunarity : Float,
+  perm_table : Array[Int],
+  grads : Array[Array[Float]],
+  base_scale : Float,
 ) -> Float {
   let mut total = 0.0
   let mut amplitude = 1.0
@@ -74,7 +75,3 @@ pub fn fbm4d(
 
   Float::from_double(total / max_amplitude)
 }
-
-
-
-

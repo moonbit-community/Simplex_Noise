@@ -1,7 +1,9 @@
+///|
 priv suberror Slice {
   Slice(String)
 }
 
+///|
 pub fn noise3d_slices(
   base_path : String,
   width : Int,
@@ -11,8 +13,8 @@ pub fn noise3d_slices(
   grads : Array[Array[Float]],
   useWarp : Bool,
   isGrayScale : Bool,
-  strength~ : Float = 1.0,
-  slice_count : Int
+  strength? : Float = 1.0,
+  slice_count : Int,
 ) -> Unit raise Error {
   for i in 0..<slice_count {
     let z = Float::from_int(i) / Float::from_int(slice_count)
@@ -35,6 +37,7 @@ pub fn noise3d_slices(
   }
 }
 
+///|
 pub fn fbm3d_slices(
   base_path : String,
   width : Int,
@@ -44,8 +47,8 @@ pub fn fbm3d_slices(
   config : NoiseConfig,
   useWarp : Bool,
   isGrayScale : Bool,
-  strength~ : Float = 1.0,
-  slice_count : Int
+  strength? : Float = 1.0,
+  slice_count : Int,
 ) -> Unit raise Error {
   for i in 0..<slice_count {
     let z = Float::from_int(i) / Float::from_int(slice_count)
@@ -68,7 +71,7 @@ pub fn fbm3d_slices(
   }
 }
 
-
+///|
 pub fn noise4d_slices(
   base_path : String,
   width : Int,
@@ -79,8 +82,8 @@ pub fn noise4d_slices(
   grads : Array[Array[Float]],
   useWarp : Bool,
   isGrayScale : Bool,
-  strength~ : Float = 1.0,
-  slice_count : Int
+  strength? : Float = 1.0,
+  slice_count : Int,
 ) -> Unit raise Error {
   for i in 0..<slice_count {
     let w = Float::from_int(i) / Float::from_int(slice_count)
@@ -104,7 +107,7 @@ pub fn noise4d_slices(
   }
 }
 
-
+///|
 pub fn fbm4d_slices(
   base_path : String,
   width : Int,
@@ -115,8 +118,8 @@ pub fn fbm4d_slices(
   config : NoiseConfig,
   useWarp : Bool,
   isGrayScale : Bool,
-  strength~ : Float = 1.0,
-  slice_count : Int
+  strength? : Float = 1.0,
+  slice_count : Int,
 ) -> Unit raise Error {
   for i in 0..<slice_count {
     let w = Float::from_int(i) / Float::from_int(slice_count)

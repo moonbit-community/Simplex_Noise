@@ -1,3 +1,4 @@
+///|
 fn save_png(path : String, png_data : Bytes) -> Bool raise @fs.IOError {
   @fs.write_bytes_to_file(path, png_data)
   true
@@ -5,6 +6,8 @@ fn save_png(path : String, png_data : Bytes) -> Bool raise @fs.IOError {
 
 // 渐变色映射工具
 // 将 H, S, L 映射为 RGB（输入：h ∈ [0,360], s ∈ [0,1], l ∈ [0,1]）
+
+///|
 fn hsl_to_rgb(h : Float, s : Float, l : Float) -> (Byte, Byte, Byte) {
   let c = (1.0 - (2.0 * l.to_double() - 1.0).abs()) * s.to_double()
   let h_ = h / 60.0
@@ -42,7 +45,7 @@ fn hsl_to_rgb(h : Float, s : Float, l : Float) -> (Byte, Byte, Byte) {
   (r, g, b)
 }
 
-
+///|
 fn noise_to_color(val : Float) -> @color.RGBA {
   let hue = val * 360.0 % 360.0 // 色相映射（让噪声值对应颜色环）
   let sat : Float = 0.6
@@ -52,10 +55,9 @@ fn noise_to_color(val : Float) -> @color.RGBA {
   @color.RGBA::new(r, g, b, c.to_byte())
 }
 
-
-
-
 // 生成指定尺寸的 2D Simplex Noise图像
+
+///|
 fn generate_noise_png_buffer(
   width : Int,
   height : Int,
@@ -64,7 +66,7 @@ fn generate_noise_png_buffer(
   grads : Array[Array[Float]],
   useWarp : Bool, // 添加 useWarp 参数来控制是否使用 warp2d
   isGrayScale : Bool, // 是否生成灰度图
-  strength : Float // 扰动强度
+  strength : Float, // 扰动强度
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -75,10 +77,21 @@ fn generate_noise_png_buffer(
       for x in 0..<width {
         let val = if useWarp {
           // 使用 warp2d（如果 useWarp 为 true）
-          warp2d(grads, [Float::from_int(x), Float::from_int(y)], seed, scale, strength)
+          warp2d(
+            grads,
+            [Float::from_int(x), Float::from_int(y)],
+            seed,
+            scale,
+            strength,
+          )
         } else {
           // 使用 simplex2d（如果 useWarp 为 false）
-          simplex2d([Float::from_int(x), Float::from_int(y)], perm_table, grads, scale)
+          simplex2d(
+            [Float::from_int(x), Float::from_int(y)],
+            perm_table,
+            grads,
+            scale,
+          )
         }
         // 将噪声值映射到灰度范围
         let raw_val = (val + 1.0) * 0.5 * 255.0
@@ -98,9 +111,20 @@ fn generate_noise_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp2d(grads, [Float::from_int(x), Float::from_int(y)], seed, scale, strength)
+          warp2d(
+            grads,
+            [Float::from_int(x), Float::from_int(y)],
+            seed,
+            scale,
+            strength,
+          )
         } else {
-          simplex2d([Float::from_int(x), Float::from_int(y)], perm_table, grads, scale)
+          simplex2d(
+            [Float::from_int(x), Float::from_int(y)],
+            perm_table,
+            grads,
+            scale,
+          )
         }
         let normalized_val = (val + 1.0) * 0.5
         let color = noise_to_color(normalized_val)
@@ -112,8 +136,9 @@ fn generate_noise_png_buffer(
   return buf.to_bytes()
 }
 
-
 // 生成指定尺寸的 2D fBm 噪声图像
+
+///|
 fn generate_fbm_png_buffer(
   width : Int,
   height : Int,
@@ -123,9 +148,9 @@ fn generate_fbm_png_buffer(
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
-  useWarp : Bool, 
-  isGrayScale : Bool, 
-  strength : Float 
+  useWarp : Bool,
+  isGrayScale : Bool,
+  strength : Float,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -205,6 +230,8 @@ fn generate_fbm_png_buffer(
 }
 
 // 生成指定尺寸的 3D Simplex Noise图像
+
+///|
 fn generate_noise3d_png_buffer(
   width : Int,
   height : Int,
@@ -212,9 +239,9 @@ fn generate_noise3d_png_buffer(
   z : Float,
   seed : Int,
   grads : Array[Array[Float]],
-  useWarp : Bool, 
+  useWarp : Bool,
   isGrayScale : Bool,
-  strength : Float 
+  strength : Float,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -224,9 +251,20 @@ fn generate_noise3d_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp3d(grads, [Float::from_int(x), Float::from_int(y), z], seed, scale, strength)
+          warp3d(
+            grads,
+            [Float::from_int(x), Float::from_int(y), z],
+            seed,
+            scale,
+            strength,
+          )
         } else {
-          simplex3d([Float::from_int(x), Float::from_int(y), z], perm_table, grads, scale)
+          simplex3d(
+            [Float::from_int(x), Float::from_int(y), z],
+            perm_table,
+            grads,
+            scale,
+          )
         }
         let raw_val = (val + 1.0) * 0.5 * 255.0
         let gray_val = if raw_val < 0.0 {
@@ -245,9 +283,20 @@ fn generate_noise3d_png_buffer(
     for y in 0..<height {
       for x in 0..<width {
         let val = if useWarp {
-          warp3d(grads, [Float::from_int(x), Float::from_int(y), z], seed, scale, strength)
+          warp3d(
+            grads,
+            [Float::from_int(x), Float::from_int(y), z],
+            seed,
+            scale,
+            strength,
+          )
         } else {
-          simplex3d([Float::from_int(x), Float::from_int(y), z], perm_table, grads, scale)
+          simplex3d(
+            [Float::from_int(x), Float::from_int(y), z],
+            perm_table,
+            grads,
+            scale,
+          )
         }
         let normalized_val = (val + 1.0) * 0.5
         let color = noise_to_color(normalized_val)
@@ -259,10 +308,9 @@ fn generate_noise3d_png_buffer(
   return buf.to_bytes()
 }
 
-
-
-
 // 生成指定尺寸的 3D fBm 噪声图像
+
+///|
 fn generate_fbm3d_png_buffer(
   width : Int,
   height : Int,
@@ -273,9 +321,9 @@ fn generate_fbm3d_png_buffer(
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
-  useWarp : Bool, 
-  isGrayScale : Bool, 
-  strength : Float 
+  useWarp : Bool,
+  isGrayScale : Bool,
+  strength : Float,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -354,9 +402,9 @@ fn generate_fbm3d_png_buffer(
   return buf.to_bytes()
 }
 
-
-
 // 生成指定尺寸的 4D Simplex 噪声图像
+
+///|
 fn generate_noise4d_png_buffer(
   width : Int,
   height : Int,
@@ -366,8 +414,8 @@ fn generate_noise4d_png_buffer(
   seed : Int,
   grads : Array[Array[Float]],
   useWarp : Bool,
-  isGrayScale : Bool, 
-  strength : Float 
+  isGrayScale : Bool,
+  strength : Float,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -434,10 +482,9 @@ fn generate_noise4d_png_buffer(
   return buf.to_bytes()
 }
 
-
-
-
 // 生成指定尺寸的 4D fBm 噪声图像
+
+///|
 fn generate_fbm4d_png_buffer(
   width : Int,
   height : Int,
@@ -449,9 +496,9 @@ fn generate_fbm4d_png_buffer(
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
-  useWarp : Bool, 
-  isGrayScale : Bool, 
-  strength : Float 
+  useWarp : Bool,
+  isGrayScale : Bool,
+  strength : Float,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -531,6 +578,8 @@ fn generate_fbm4d_png_buffer(
 }
 
 // 生成指定尺寸的 2D 平铺 Simplex Noise 图像
+
+///|
 fn generate_tileable_noise2d_image(
   width : Int,
   height : Int,
@@ -538,7 +587,7 @@ fn generate_tileable_noise2d_image(
   seed : Int,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -582,6 +631,8 @@ fn generate_tileable_noise2d_image(
 }
 
 // 生成指定尺寸的 2D 平铺 fBm 噪声图像（支持灰度和彩色）
+
+///|
 fn generate_tileable_fbm2d_image(
   width : Int,
   height : Int,
@@ -589,7 +640,7 @@ fn generate_tileable_fbm2d_image(
   seed : Int,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -651,6 +702,8 @@ fn generate_tileable_fbm2d_image(
 }
 
 // 生成指定尺寸的 3D 平铺 Simplex Noise 图像
+
+///|
 fn generate_tileable_noise3d_image(
   width : Int,
   height : Int,
@@ -660,7 +713,7 @@ fn generate_tileable_noise3d_image(
   seed : Int,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -704,6 +757,8 @@ fn generate_tileable_noise3d_image(
 }
 
 // 生成指定尺寸的 3D 平铺 fBm 噪声图像
+
+///|
 fn generate_tileable_fbm3d_image(
   width : Int,
   height : Int,
@@ -713,7 +768,7 @@ fn generate_tileable_fbm3d_image(
   seed : Int,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -777,6 +832,8 @@ fn generate_tileable_fbm3d_image(
 }
 
 // 生成指定尺寸的 4D 平铺 Simplex Noise 图像
+
+///|
 fn generate_tileable_noise4d_image(
   width : Int,
   height : Int,
@@ -788,7 +845,7 @@ fn generate_tileable_noise4d_image(
   scale : Float,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)
@@ -799,15 +856,7 @@ fn generate_tileable_noise4d_image(
       for x in 0..<width {
         let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_noise4d(
-          p,
-          perm_table,
-          grads,
-          scale,
-          width,
-          height,
-          depth,
-          time,
-          pi,
+          p, perm_table, grads, scale, width, height, depth, time, pi,
         )
         let raw_val = (val + 1.0) * 0.5 * 255.0
         let gray_val = if raw_val < 0.0 {
@@ -827,15 +876,7 @@ fn generate_tileable_noise4d_image(
       for x in 0..<width {
         let p = [Float::from_int(x), Float::from_int(y), z, w]
         let val = tileable_noise4d(
-          p,
-          perm_table,
-          grads,
-          scale,
-          width,
-          height,
-          depth,
-          time,
-          pi,
+          p, perm_table, grads, scale, width, height, depth, time, pi,
         )
         let normalized_val = (val + 1.0) * 0.5
         let color = noise_to_color(normalized_val)
@@ -848,6 +889,8 @@ fn generate_tileable_noise4d_image(
 }
 
 // 生成指定尺寸的 4D 平铺 fBm 噪声图像
+
+///|
 fn generate_tileable_fbm4d_image(
   width : Int,
   height : Int,
@@ -859,7 +902,7 @@ fn generate_tileable_fbm4d_image(
   config : NoiseConfig,
   grads : Array[Array[Float]],
   pi : Double,
-  isGrayScale : Bool
+  isGrayScale : Bool,
 ) -> Bytes raise @image.SizeError {
   let buf = @io.Buffer::new(size_hint=1024)
   let perm_table = init_noise(seed)

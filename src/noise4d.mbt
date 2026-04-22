@@ -1,8 +1,9 @@
+///|
 fn simplex4d(
-  p: Array[Float],
-  perm_table: Array[Int],
-  grads: Array[Array[Float]],
-  scale: Float 
+  p : Array[Float],
+  perm_table : Array[Int],
+  grads : Array[Array[Float]],
+  scale : Float,
 ) -> Float {
   let f4 = (@math.sqrt(5.0) - 1.0) / 4.0
   let g4 = (5.0 - @math.sqrt(5.0)) / 20.0
@@ -102,29 +103,38 @@ fn simplex4d(
   let t0 = 0.6 - (x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0).to_double()
   if t0 >= 0.0 {
     let t0_2 = t0 * t0
-    n0 = t0_2 * t0_2 * (gi0[0] * x0 + gi0[1] * y0 + gi0[2] * z0 + gi0[3] * w0).to_double()
+    n0 = t0_2 *
+      t0_2 *
+      (gi0[0] * x0 + gi0[1] * y0 + gi0[2] * z0 + gi0[3] * w0).to_double()
   }
   let t1 = 0.6 - (x1 * x1 + y1 * y1 + z1 * z1 + w1 * w1).to_double()
   if t1 >= 0.0 {
     let t1_2 = t1 * t1
-    n1 = t1_2 * t1_2 * (gi1[0] * x1 + gi1[1] * y1 + gi1[2] * z1 + gi1[3] * w1).to_double()
+    n1 = t1_2 *
+      t1_2 *
+      (gi1[0] * x1 + gi1[1] * y1 + gi1[2] * z1 + gi1[3] * w1).to_double()
   }
   let t2 = 0.6 - (x2 * x2 + y2 * y2 + z2 * z2 + w2 * w2).to_double()
   if t2 >= 0.0 {
     let t2_2 = t2 * t2
-    n2 = t2_2 * t2_2 * (gi2[0] * x2 + gi2[1] * y2 + gi2[2] * z2 + gi2[3] * w2).to_double()
+    n2 = t2_2 *
+      t2_2 *
+      (gi2[0] * x2 + gi2[1] * y2 + gi2[2] * z2 + gi2[3] * w2).to_double()
   }
   let t3 = 0.6 - (x3 * x3 + y3 * y3 + z3 * z3 + w3 * w3).to_double()
   if t3 >= 0.0 {
     let t3_2 = t3 * t3
-    n3 = t3_2 * t3_2 * (gi3[0] * x3 + gi3[1] * y3 + gi3[2] * z3 + gi3[3] * w3).to_double()
+    n3 = t3_2 *
+      t3_2 *
+      (gi3[0] * x3 + gi3[1] * y3 + gi3[2] * z3 + gi3[3] * w3).to_double()
   }
   let t4 = 0.6 - (x4 * x4 + y4 * y4 + z4 * z4 + w4 * w4).to_double()
   if t4 >= 0.0 {
     let t4_2 = t4 * t4
-    n4 = t4_2 * t4_2 * (gi4[0] * x4 + gi4[1] * y4 + gi4[2] * z4 + gi4[3] * w4).to_double()
+    n4 = t4_2 *
+      t4_2 *
+      (gi4[0] * x4 + gi4[1] * y4 + gi4[2] * z4 + gi4[3] * w4).to_double()
   }
 
   27.0 * Float::from_double(n0 + n1 + n2 + n3 + n4) // 归一化
 }
-

@@ -1,0 +1,12 @@
+import {
+  "gmlewis/image" @image,
+  "gmlewis/image/png" @png,
+  "gmlewis/image/color" @color,
+  "gmlewis/io" @io,
+  "Kaida-Amethyst/math",
+  "moonbitlang/x/fs" @fs,
+}
+
+options(
+  "is-main": false,
+)

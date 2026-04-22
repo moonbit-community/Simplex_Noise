@@ -1,4 +1,5 @@
 //2D
+///|
 test "Basic Simplex Noise Image" {
   let (_, grads) = @ZSeanYves/SimplexNoise.create2d(42)
   //父目录写法按系统自行调整，这里及下面默认按windows路径
@@ -8,7 +9,7 @@ test "Basic Simplex Noise Image" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "fBm Noise Image (Cloud/Heightmap)" {
   let config = @ZSeanYves/SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create2d(123)
@@ -17,15 +18,18 @@ test "fBm Noise Image (Cloud/Heightmap)" {
   )
   assert_eq(ok, true)
 }
+
+///|
 test "Basic Simplex Noise Image (Color)" {
   let (_, grads) = create2d(42)
   let ok = @ZSeanYves/SimplexNoise.noise2d_image(
     "./src/examples/color/basic/noise2d_color.png", 256, 256, 0.05, 42, grads, false,
-    false, 
+    false,
   )
   assert_eq(ok, true)
 }
 
+///|
 test "fBm Noise Image (Color)" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create2d(123)
@@ -36,6 +40,7 @@ test "fBm Noise Image (Color)" {
   assert_eq(ok, true)
 }
 
+///|
 test "Basic Simplex Noise with Warp" {
   let (_, grads) = create2d(42)
   let ok = noise2d_image(
@@ -52,6 +57,7 @@ test "Basic Simplex Noise with Warp" {
   assert_eq(ok, true)
 }
 
+///|
 test "fBm Noise with Warp (color)" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create2d(123)
@@ -69,6 +75,7 @@ test "fBm Noise with Warp (color)" {
   assert_eq(ok, true)
 }
 
+///|
 test "tileable Simplex Noise Image " {
   let (_, grads) = create2d(42)
   let ok = @ZSeanYves/SimplexNoise.tnoise2d_image(
@@ -77,6 +84,7 @@ test "tileable Simplex Noise Image " {
   assert_eq(ok, true)
 }
 
+///|
 test "tileable fBm Noise Image " {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create2d(123)
@@ -86,14 +94,14 @@ test "tileable fBm Noise Image " {
   assert_eq(ok, true)
 }
 
-
-
+///|
 test "Permutation Table Initialization" {
   let (perm, _) = create2d(7)
   assert_eq(perm.length(), 512)
   assert_eq(perm[0] >= 0 && perm[0] < 256, true)
 }
 
+///|
 test "Gradient Vector Validity" {
   for g in grads2d {
     let len = (g[0] * g[0] + g[1] * g[1]).sqrt()
@@ -101,11 +109,17 @@ test "Gradient Vector Validity" {
   }
 }
 
+///|
 test "2D Simplex Noise Output Range" {
   let (perm, grads) = create2d(99)
   for i in 0..<100 {
     for j in 0..<100 {
-      let val = noise2d([Float::from_int(i), Float::from_int(j)], perm, grads, 0.05)
+      let val = noise2d(
+        [Float::from_int(i), Float::from_int(j)],
+        perm,
+        grads,
+        0.05,
+      )
       assert_eq(val >= -1.1 && val <= 1.1, true) // 理论范围 [-1, 1]，考虑浮点误差
     }
   }
@@ -119,6 +133,8 @@ test "2D Simplex Noise Output Range" {
 //
 //
 // 3D
+
+///|
 test "3D Simplex Noise Slice Image" {
   let (_, grads) = @ZSeanYves/SimplexNoise.create3d(42)
   let ok = @ZSeanYves/SimplexNoise.noise3d_image(
@@ -128,6 +144,7 @@ test "3D Simplex Noise Slice Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "3D fBm Noise Slice Image" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create3d(123)
@@ -138,6 +155,7 @@ test "3D fBm Noise Slice Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "3D Simplex Noise Slice Image (Color)" {
   let (_, grads) = create3d(42)
   let ok = noise3d_image(
@@ -147,6 +165,7 @@ test "3D Simplex Noise Slice Image (Color)" {
   assert_eq(ok, true)
 }
 
+///|
 test "3D fBm Noise Slice Image (Color)" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create3d(123)
@@ -157,7 +176,7 @@ test "3D fBm Noise Slice Image (Color)" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "3D Simplex Noise Slices Batch Output" {
   let (_, grads) = create3d(42)
   noise3d_slices(
@@ -166,6 +185,7 @@ test "3D Simplex Noise Slices Batch Output" {
   )
 }
 
+///|
 test "3D fBm Noise Slices Batch Output" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (_, grads) = create3d(123)
@@ -175,7 +195,7 @@ test "3D fBm Noise Slices Batch Output" {
   )
 }
 
-
+///|
 test "3D Simplex Noise Slices Batch Output (Color)" {
   let (_, grads) = create3d(42)
   noise3d_slices(
@@ -184,7 +204,7 @@ test "3D Simplex Noise Slices Batch Output (Color)" {
   )
 }
 
-
+///|
 test "3D fBm Noise Slices Batch Output (Color)" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (_, grads) = create3d(123)
@@ -194,6 +214,7 @@ test "3D fBm Noise Slices Batch Output (Color)" {
   )
 }
 
+///|
 test "Basic Simplex 3D Noise with Warp" {
   let (_, grads) = create3d(42)
   let ok = noise3d_image(
@@ -211,6 +232,7 @@ test "Basic Simplex 3D Noise with Warp" {
   assert_eq(ok, true)
 }
 
+///|
 test "fBm 3D Noise with Warp" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create3d(123)
@@ -229,6 +251,7 @@ test "fBm 3D Noise with Warp" {
   assert_eq(ok, true)
 }
 
+///|
 test "tileable Simplex Noise 3D Image" {
   let (_, grads) = create3d(101)
   let ok = @ZSeanYves/SimplexNoise.tnoise3d_image(
@@ -238,6 +261,7 @@ test "tileable Simplex Noise 3D Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "tileable fBm Noise 3D Image" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.02)
   let (_, grads) = create3d(202)
@@ -248,7 +272,7 @@ test "tileable fBm Noise 3D Image" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "Simplex Noise 3D - Output Range & Smoothness" {
   let (perm, grads) = create3d(42)
   let mut min_val = 1_000_000_000.0
@@ -281,6 +305,7 @@ test "Simplex Noise 3D - Output Range & Smoothness" {
   assert_eq(diff_sum / count.to_double() < 0.5, true) // 平滑性
 }
 
+///|
 test "fBm Noise 3D - Output Range & Smoothness" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (perm, grads) = create3d(42)
@@ -305,7 +330,8 @@ test "fBm Noise 3D - Output Range & Smoothness" {
           min_val = val.to_double()
         }
         if val > Float::from_double(max_val) {
-          max_val = val.to_double()       }
+          max_val = val.to_double()
+        }
         diff_sum += (val.to_double() - last).abs()
         last = val.to_double()
         count += 1
@@ -324,6 +350,8 @@ test "fBm Noise 3D - Output Range & Smoothness" {
 //
 //
 // 4D
+
+///|
 test "4D Simplex Noise Slice Image" {
   let (_, grads) = @ZSeanYves/SimplexNoise.create4d(42)
   let ok = @ZSeanYves/SimplexNoise.noise4d_image(
@@ -334,7 +362,7 @@ test "4D Simplex Noise Slice Image" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "4D fBm Noise Slice Image" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create4d(123)
@@ -345,6 +373,7 @@ test "4D fBm Noise Slice Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "4D Simplex Noise Slice Image (Color)" {
   let (_, grads) = create4d(42)
   let ok = noise4d_image(
@@ -354,7 +383,7 @@ test "4D Simplex Noise Slice Image (Color)" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "4D fBm Noise Slice Image (Color)" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create4d(123)
@@ -365,7 +394,7 @@ test "4D fBm Noise Slice Image (Color)" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "4D Simplex Noise Slices Batch Output" {
   let (_, grads) = create4d(42)
   noise4d_slices(
@@ -374,7 +403,7 @@ test "4D Simplex Noise Slices Batch Output" {
   )
 }
 
-
+///|
 test "4D fBm Noise Slices Batch Output" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (_, grads) = create4d(123)
@@ -384,7 +413,7 @@ test "4D fBm Noise Slices Batch Output" {
   )
 }
 
-
+///|
 test "4D Simplex Noise Slices Batch Output (Color)" {
   let (_, grads) = create4d(42)
   noise4d_slices(
@@ -393,7 +422,7 @@ test "4D Simplex Noise Slices Batch Output (Color)" {
   )
 }
 
-
+///|
 test "4D fBm Noise Slices Batch Output (Color)" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (_, grads) = create4d(123)
@@ -403,6 +432,7 @@ test "4D fBm Noise Slices Batch Output (Color)" {
   )
 }
 
+///|
 test "Basic Simplex 4D Noise with Warp" {
   let (_, grads) = create4d(42)
   let ok = noise4d_image(
@@ -421,6 +451,7 @@ test "Basic Simplex 4D Noise with Warp" {
   assert_eq(ok, true)
 }
 
+///|
 test "fBm 4D Noise with Warp" {
   let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
   let (_, grads) = create4d(123)
@@ -439,6 +470,8 @@ test "fBm 4D Noise with Warp" {
   )
   assert_eq(ok, true)
 }
+
+///|
 test "tileable Simplex Noise 4D Image" {
   let (_, grads) = create4d(303)
   let ok = @ZSeanYves/SimplexNoise.tnoise4d_image(
@@ -448,6 +481,7 @@ test "tileable Simplex Noise 4D Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "tileable fBm Noise 4D Image" {
   let config = new_NoiseConfig(8, 0.6, 2.1, 0.04)
   let (_, grads) = create4d(404)
@@ -458,6 +492,7 @@ test "tileable fBm Noise 4D Image" {
   assert_eq(ok, true)
 }
 
+///|
 test "Simplex Noise 4D - Output Range & Smoothness" {
   let (perm, grads) = create4d(123)
   let mut min_val = 1_000_000_000.0
@@ -470,7 +505,12 @@ test "Simplex Noise 4D - Output Range & Smoothness" {
       for z in 0..<6 {
         for w in 0..<6 {
           let val = @ZSeanYves/SimplexNoise.noise4d(
-            [Float::from_int(x), Float::from_int(y), Float::from_int(z), Float::from_int(w)],
+            [
+              Float::from_int(x),
+              Float::from_int(y),
+              Float::from_int(z),
+              Float::from_int(w),
+            ],
             perm,
             grads,
             0.2,
@@ -483,7 +523,8 @@ test "Simplex Noise 4D - Output Range & Smoothness" {
           }
           diff_sum += (val.to_double() - last).abs()
           last = val.to_double()
-          count += 1       }
+          count += 1
+        }
       }
     }
   }
@@ -491,9 +532,7 @@ test "Simplex Noise 4D - Output Range & Smoothness" {
   assert_eq(diff_sum / count.to_double() < 0.5, true)
 }
 
-
-
-
+///|
 test "fBm Noise 4D - Output Range & Smoothness" {
   let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
   let (perm, grads) = create4d(456)
@@ -507,7 +546,12 @@ test "fBm Noise 4D - Output Range & Smoothness" {
       for z in 0..<6 {
         for w in 0..<6 {
           let val = @ZSeanYves/SimplexNoise.fbm4d(
-            [Float::from_int(x), Float::from_int(y), Float::from_int(z), Float::from_int(w)],
+            [
+              Float::from_int(x),
+              Float::from_int(y),
+              Float::from_int(z),
+              Float::from_int(w),
+            ],
             config.octaves,
             config.persistence,
             config.lacunarity,
@@ -541,6 +585,8 @@ test "fBm Noise 4D - Output Range & Smoothness" {
 //
 //
 //与 py noise 标准库对比测试
+
+///|
 test "compare with Python snoise2" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0],
@@ -553,11 +599,13 @@ test "compare with Python snoise2" {
     [0.0, -1.0],
   ]
   let ok = @ZSeanYves/SimplexNoise.noise2d_image(
-    "./src/examples/comparison/snoise2d_moonbit.png", 256, 256, 0.05, 42, grads, false, true,
+    "./src/examples/comparison/snoise2d_moonbit.png", 256, 256, 0.05, 42, grads,
+    false, true,
   )
   assert_eq(ok, true)
 }
 
+///|
 test "compare with Python fbm snoise2" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0],
@@ -569,7 +617,7 @@ test "compare with Python fbm snoise2" {
     [0.0, 1.0],
     [0.0, -1.0],
   ]
-  let config = new_NoiseConfig(6, 0.5, 2.0, 1.0) 
+  let config = new_NoiseConfig(6, 0.5, 2.0, 1.0)
   let ok = @ZSeanYves/SimplexNoise.fbm2d_image(
     "./src/examples/comparison/fbm2d_moonbit.png", 256, 256, 42, grads, config, false,
     true,
@@ -577,6 +625,7 @@ test "compare with Python fbm snoise2" {
   assert_eq(ok, true)
 }
 
+///|
 test "compare with Python snoise3" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0, 0.0],
@@ -603,6 +652,7 @@ test "compare with Python snoise3" {
   assert_eq(ok, true)
 }
 
+///|
 test "compare with Python fbm snoise3" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0, 0.0],
@@ -630,7 +680,7 @@ test "compare with Python fbm snoise3" {
   assert_eq(ok, true)
 }
 
-
+///|
 test "compare with Python snoise4" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0, 0.0, 0.0],
@@ -657,6 +707,7 @@ test "compare with Python snoise4" {
   assert_eq(ok, true)
 }
 
+///|
 test "compare with Python fbm snoise4" {
   let grads : Array[Array[Float]] = [
     [1.0, 1.0, 0.0, 0.0],
