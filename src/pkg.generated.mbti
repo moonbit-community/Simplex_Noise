@@ -1,0 +1,78 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "ZSeanYves/SimplexNoise"
+
+// Values
+pub fn create2d(Int) -> (Array[Int], Array[Array[Float]])
+
+pub fn create3d(Int) -> (Array[Int], Array[Array[Float]])
+
+pub fn create4d(Int) -> (Array[Int], Array[Array[Float]])
+
+pub fn fbm2d(Array[Float], Int, Float, Float, Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn fbm2d_image(String, Int, Int, Int, Array[Array[Float]], NoiseConfig, Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn fbm3d(Array[Float], Int, Float, Float, Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn fbm3d_image(String, Int, Int, Float, Int, Array[Array[Float]], NoiseConfig, Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn fbm3d_slices(String, Int, Int, Int, Array[Array[Float]], NoiseConfig, Bool, Bool, strength? : Float, Int) -> Unit raise
+
+pub fn fbm4d(Array[Float], Int, Float, Float, Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn fbm4d_image(String, Int, Int, Float, Float, Int, Array[Array[Float]], NoiseConfig, Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn fbm4d_slices(String, Int, Int, Float, Int, Array[Array[Float]], NoiseConfig, Bool, Bool, strength? : Float, Int) -> Unit raise
+
+pub let grads2d : Array[Array[Float]]
+
+pub let grads3d : Array[Array[Float]]
+
+pub let grads4d : Array[Array[Float]]
+
+pub fn new_NoiseConfig(Int, Float, Float, Float) -> NoiseConfig
+
+pub fn new_maxwarp(Float) -> Float
+
+pub fn noise2d(Array[Float], Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn noise2d_image(String, Int, Int, Float, Int, Array[Array[Float]], Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn noise3d(Array[Float], Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn noise3d_image(String, Int, Int, Float, Float, Int, Array[Array[Float]], Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn noise3d_slices(String, Int, Int, Float, Int, Array[Array[Float]], Bool, Bool, strength? : Float, Int) -> Unit raise
+
+pub fn noise4d(Array[Float], Array[Int], Array[Array[Float]], Float) -> Float
+
+pub fn noise4d_image(String, Int, Int, Float, Float, Float, Int, Array[Array[Float]], Bool, Bool, strength? : Float) -> Bool raise
+
+pub fn noise4d_slices(String, Int, Int, Float, Float, Int, Array[Array[Float]], Bool, Bool, strength? : Float, Int) -> Unit raise
+
+pub fn tfbm2d_image(String, Int, Int, Int, Array[Array[Float]], NoiseConfig, pi? : Double, Bool) -> Bool raise
+
+pub fn tfbm3d_image(String, Int, Int, Int, Int, Float, Array[Array[Float]], NoiseConfig, pi? : Double, Bool) -> Bool raise
+
+pub fn tfbm4d_image(String, Int, Int, Int, Int, Float, Float, Int, Array[Array[Float]], NoiseConfig, pi? : Double, Bool) -> Bool raise
+
+pub fn tnoise2d_image(String, Int, Int, Float, Int, Array[Array[Float]], pi? : Double, Bool) -> Bool raise
+
+pub fn tnoise3d_image(String, Int, Int, Int, Float, Int, Float, Array[Array[Float]], pi? : Double, Bool) -> Bool raise
+
+pub fn tnoise4d_image(String, Int, Int, Int, Int, Float, Float, Int, Array[Array[Float]], Float, pi? : Double, Bool) -> Bool raise
+
+// Errors
+
+// Types and methods
+pub struct NoiseConfig {
+  octaves : Int
+  persistence : Float
+  lacunarity : Float
+  scale : Float
+}
+
+// Type aliases
+
+// Traits
+
