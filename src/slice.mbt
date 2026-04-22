@@ -27,7 +27,7 @@ pub fn noise3d_slices(
       isGrayScale,
       strength~,
     )
-    if not(ok) {
+    if !ok {
       raise Slice("Failed to save slice \{i}")
     }
   }
@@ -60,7 +60,7 @@ pub fn fbm3d_slices(
       isGrayScale,
       strength~,
     )
-    if not(ok) {
+    if !ok {
       raise Slice("Failed to save fBm slice \{i}")
     }
   }
@@ -96,7 +96,7 @@ pub fn noise4d_slices(
       isGrayScale,
       strength~,
     )
-    if not(ok) {
+    if !ok {
       raise Slice("Failed to save slice \{i}")
     }
   }
@@ -132,10 +132,9 @@ pub fn fbm4d_slices(
       isGrayScale,
       strength~,
     )
-    if not(ok) {
+    if !ok {
       raise Slice("Failed to save fBm slice \{i}")
     }
   }
 }
-
 
