@@ -13,7 +13,7 @@ pub fn noise3d_slices(
   slice_count : Int
 ) -> Unit raise Error {
   for i in 0..<slice_count {
-    let z = i.to_float() / slice_count.to_float()
+    let z = Float::from_int(i) / Float::from_int(slice_count)
     let path = base_path + "/slice_\{i}.png"
     let ok = noise3d_image(
       path,
@@ -46,7 +46,7 @@ pub fn fbm3d_slices(
   slice_count : Int
 ) -> Unit raise Error {
   for i in 0..<slice_count {
-    let z = i.to_float() / slice_count.to_float()
+    let z = Float::from_int(i) / Float::from_int(slice_count)
     let path = base_path + "/fbm_slice_\{i}.png"
     let ok = fbm3d_image(
       path,
@@ -81,7 +81,7 @@ pub fn noise4d_slices(
   slice_count : Int
 ) -> Unit raise Error {
   for i in 0..<slice_count {
-    let w = i.to_float() / slice_count.to_float()
+    let w = Float::from_int(i) / Float::from_int(slice_count)
     let path = base_path + "/slice_\{i}.png"
     let ok = noise4d_image(
       path,
@@ -117,7 +117,7 @@ pub fn fbm4d_slices(
   slice_count : Int
 ) -> Unit raise Error {
   for i in 0..<slice_count {
-    let w = i.to_float() / slice_count.to_float()
+    let w = Float::from_int(i) / Float::from_int(slice_count)
     let path = base_path + "/fbm_slice_\{i}.png"
     let ok = fbm4d_image(
       path,

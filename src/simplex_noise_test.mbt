@@ -105,7 +105,7 @@ test "2D Simplex Noise Output Range" {
   let (perm, grads) = create2d(99)
   for i in 0..<100 {
     for j in 0..<100 {
-      let val = noise2d([i.to_float(), j.to_float()], perm, grads, 0.05)
+      let val = noise2d([Float::from_int(i), Float::from_int(j)], perm, grads, 0.05)
       assert_eq(val >= -1.1 && val <= 1.1, true) // 理论范围 [-1, 1]，考虑浮点误差
     }
   }
@@ -260,15 +260,15 @@ test "Simplex Noise 3D - Output Range & Smoothness" {
     for y in 0..<10 {
       for z in 0..<10 {
         let val = @ZSeanYves/SimplexNoise.noise3d(
-          [x.to_float(), y.to_float(), z.to_float()],
+          [Float::from_int(x), Float::from_int(y), Float::from_int(z)],
           perm,
           grads,
           0.1,
         )
-        if val < min_val.to_float() {
+        if val < Float::from_double(min_val) {
           min_val = val.to_double()
         }
-        if val > max_val.to_float() {
+        if val > Float::from_double(max_val) {
           max_val = val.to_double()
         }
         diff_sum += (val.to_double() - last).abs()
@@ -293,7 +293,7 @@ test "fBm Noise 3D - Output Range & Smoothness" {
     for y in 0..<10 {
       for z in 0..<10 {
         let val = @ZSeanYves/SimplexNoise.fbm3d(
-          [x.to_float(), y.to_float(), z.to_float()],
+          [Float::from_int(x), Float::from_int(y), Float::from_int(z)],
           config.octaves,
           config.persistence,
           config.lacunarity,
@@ -301,10 +301,10 @@ test "fBm Noise 3D - Output Range & Smoothness" {
           grads,
           0.1,
         )
-        if val < min_val.to_float() {
+        if val < Float::from_double(min_val) {
           min_val = val.to_double()
         }
-        if val > max_val.to_float() {
+        if val > Float::from_double(max_val) {
           max_val = val.to_double()       }
         diff_sum += (val.to_double() - last).abs()
         last = val.to_double()
@@ -470,15 +470,15 @@ test "Simplex Noise 4D - Output Range & Smoothness" {
       for z in 0..<6 {
         for w in 0..<6 {
           let val = @ZSeanYves/SimplexNoise.noise4d(
-            [x.to_float(), y.to_float(), z.to_float(), w.to_float()],
+            [Float::from_int(x), Float::from_int(y), Float::from_int(z), Float::from_int(w)],
             perm,
             grads,
             0.2,
           )
-          if val < min_val.to_float() {
+          if val < Float::from_double(min_val) {
             min_val = val.to_double()
           }
-          if val > max_val.to_float() {
+          if val > Float::from_double(max_val) {
             max_val = val.to_double()
           }
           diff_sum += (val.to_double() - last).abs()
@@ -507,7 +507,7 @@ test "fBm Noise 4D - Output Range & Smoothness" {
       for z in 0..<6 {
         for w in 0..<6 {
           let val = @ZSeanYves/SimplexNoise.fbm4d(
-            [x.to_float(), y.to_float(), z.to_float(), w.to_float()],
+            [Float::from_int(x), Float::from_int(y), Float::from_int(z), Float::from_int(w)],
             config.octaves,
             config.persistence,
             config.lacunarity,
@@ -515,10 +515,10 @@ test "fBm Noise 4D - Output Range & Smoothness" {
             grads,
             0.2,
           )
-          if val < min_val.to_float() {
+          if val < Float::from_double(min_val) {
             min_val = val.to_double()
           }
-          if val > max_val.to_float() {
+          if val > Float::from_double(max_val) {
             max_val = val.to_double()
           }
           diff_sum += (val.to_double() - last).abs()

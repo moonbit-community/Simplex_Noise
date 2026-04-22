@@ -16,10 +16,10 @@ fn simplex3d(
   let j = @math.floor(ny.to_double() + s).to_int()
   let k = @math.floor(nz.to_double() + s).to_int()
 
-  let t = (i.to_float() + j.to_float() + k.to_float()) * g3.to_float()
-  let x0 = nx - (i.to_float() - t)
-  let y0 = ny - (j.to_float() - t)
-  let z0 = nz - (k.to_float() - t)
+  let t = (Float::from_int(i) + Float::from_int(j) + Float::from_int(k)) * Float::from_double(g3)
+  let x0 = nx - (Float::from_int(i) - t)
+  let y0 = ny - (Float::from_int(j) - t)
+  let z0 = nz - (Float::from_int(k) - t)
 
   let mut ijk1 = [0, 0, 0]
   let mut ijk2 = [0, 0, 0]
@@ -48,17 +48,17 @@ fn simplex3d(
     }
   }
 
-  let x1 = x0 - (ijk1[0].to_double() + g3).to_float()
-  let y1 = y0 - (ijk1[1].to_double() + g3).to_float()
-  let z1 = z0 - (ijk1[2].to_double() + g3).to_float()
+  let x1 = x0 - Float::from_double(ijk1[0].to_double() + g3)
+  let y1 = y0 - Float::from_double(ijk1[1].to_double() + g3)
+  let z1 = z0 - Float::from_double(ijk1[2].to_double() + g3)
 
-  let x2 = x0 - (ijk2[0].to_double() + 2.0 * g3).to_float()
-  let y2 = y0 - (ijk2[1].to_double() + 2.0 * g3).to_float()
-  let z2 = z0 - (ijk2[2].to_double() + 2.0 * g3).to_float()
+  let x2 = x0 - Float::from_double(ijk2[0].to_double() + 2.0 * g3)
+  let y2 = y0 - Float::from_double(ijk2[1].to_double() + 2.0 * g3)
+  let z2 = z0 - Float::from_double(ijk2[2].to_double() + 2.0 * g3)
 
-  let x3 = x0 - 1.0 + 3.0 * g3.to_float()
-  let y3 = y0 - 1.0 + 3.0 * g3.to_float()
-  let z3 = z0 - 1.0 + 3.0 * g3.to_float()
+  let x3 = x0 - 1.0 + 3.0 * Float::from_double(g3)
+  let y3 = y0 - 1.0 + 3.0 * Float::from_double(g3)
+  let z3 = z0 - 1.0 + 3.0 * Float::from_double(g3)
 
   let gi0 = hash3d(i, j, k, perm_table, grads)
   let gi1 = hash3d(i + ijk1[0], j + ijk1[1], k + ijk1[2], perm_table, grads)
@@ -94,6 +94,6 @@ fn simplex3d(
     n3 = t3_2 * t3_2 * (gi3[0] * x3 + gi3[1] * y3 + gi3[2] * z3).to_double()
   }
 
-  32.0 * (n0 + n1 + n2 + n3).to_float() 
+  32.0 * Float::from_double(n0 + n1 + n2 + n3) 
 }
 

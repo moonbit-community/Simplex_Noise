@@ -12,16 +12,16 @@ fn simplex4d(
   let nz = p[2] * scale
   let nw = p[3] * scale
 
-  let s = (nx + ny + nz + nw) * f4.to_float()
+  let s = (nx + ny + nz + nw) * Float::from_double(f4)
   let i = @math.floor(nx.to_double() + s.to_double()).to_int()
   let j = @math.floor(ny.to_double() + s.to_double()).to_int()
   let k = @math.floor(nz.to_double() + s.to_double()).to_int()
   let l = @math.floor(nw.to_double() + s.to_double()).to_int()
-  let t = (i + j + k + l).to_float() * g4.to_float()
-  let x0 = nx - (i.to_float() - t)
-  let y0 = ny - (j.to_float() - t)
-  let z0 = nz - (k.to_float() - t)
-  let w0 = nw - (l.to_float() - t)
+  let t = Float::from_int(i + j + k + l) * Float::from_double(g4)
+  let x0 = nx - (Float::from_int(i) - t)
+  let y0 = ny - (Float::from_int(j) - t)
+  let z0 = nz - (Float::from_int(k) - t)
+  let w0 = nw - (Float::from_int(l) - t)
 
   // 确定 4D 单纯形内部次序
   let rank = [0, 0, 0, 0]
@@ -70,22 +70,22 @@ fn simplex4d(
   let l3 = if rank[3] >= 1 { 1 } else { 0 }
 
   // 四个顶点偏移
-  let x1 = x0 - i1.to_float() + g4.to_float()
-  let y1 = y0 - j1.to_float() + g4.to_float()
-  let z1 = z0 - k1.to_float() + g4.to_float()
-  let w1 = w0 - l1.to_float() + g4.to_float()
-  let x2 = x0 - i2.to_float() + 2.0 * g4.to_float()
-  let y2 = y0 - j2.to_float() + 2.0 * g4.to_float()
-  let z2 = z0 - k2.to_float() + 2.0 * g4.to_float()
-  let w2 = w0 - l2.to_float() + 2.0 * g4.to_float()
-  let x3 = x0 - i3.to_float() + 3.0 * g4.to_float()
-  let y3 = y0 - j3.to_float() + 3.0 * g4.to_float()
-  let z3 = z0 - k3.to_float() + 3.0 * g4.to_float()
-  let w3 = w0 - l3.to_float() + 3.0 * g4.to_float()
-  let x4 = x0 - 1.0 + 4.0 * g4.to_float()
-  let y4 = y0 - 1.0 + 4.0 * g4.to_float()
-  let z4 = z0 - 1.0 + 4.0 * g4.to_float()
-  let w4 = w0 - 1.0 + 4.0 * g4.to_float()
+  let x1 = x0 - Float::from_int(i1) + Float::from_double(g4)
+  let y1 = y0 - Float::from_int(j1) + Float::from_double(g4)
+  let z1 = z0 - Float::from_int(k1) + Float::from_double(g4)
+  let w1 = w0 - Float::from_int(l1) + Float::from_double(g4)
+  let x2 = x0 - Float::from_int(i2) + 2.0 * Float::from_double(g4)
+  let y2 = y0 - Float::from_int(j2) + 2.0 * Float::from_double(g4)
+  let z2 = z0 - Float::from_int(k2) + 2.0 * Float::from_double(g4)
+  let w2 = w0 - Float::from_int(l2) + 2.0 * Float::from_double(g4)
+  let x3 = x0 - Float::from_int(i3) + 3.0 * Float::from_double(g4)
+  let y3 = y0 - Float::from_int(j3) + 3.0 * Float::from_double(g4)
+  let z3 = z0 - Float::from_int(k3) + 3.0 * Float::from_double(g4)
+  let w3 = w0 - Float::from_int(l3) + 3.0 * Float::from_double(g4)
+  let x4 = x0 - 1.0 + 4.0 * Float::from_double(g4)
+  let y4 = y0 - 1.0 + 4.0 * Float::from_double(g4)
+  let z4 = z0 - 1.0 + 4.0 * Float::from_double(g4)
+  let w4 = w0 - 1.0 + 4.0 * Float::from_double(g4)
 
   // 计算四个角落的梯度索引
   let gi0 = hash4d(i, j, k, l, perm_table, grads)
@@ -125,6 +125,6 @@ fn simplex4d(
     n4 = t4_2 * t4_2 * (gi4[0] * x4 + gi4[1] * y4 + gi4[2] * z4 + gi4[3] * w4).to_double()
   }
 
-  27.0 * (n0 + n1 + n2 + n3 + n4).to_float() // 归一化
+  27.0 * Float::from_double(n0 + n1 + n2 + n3 + n4) // 归一化
 }
 

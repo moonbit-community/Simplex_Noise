@@ -9,8 +9,8 @@ fn tileable_noise2d(
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
   return simplex2d([tiled_x, tiled_y ], perm_table, grads, scale)
 }
 
@@ -29,8 +29,8 @@ fn tileable_fbm2d(
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
 
   return fbm2d(
     [tiled_x, tiled_y],
@@ -59,9 +59,9 @@ fn tileable_noise3d(
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
   let angle_z = 2.0 * pi * p[2].to_double() / depth.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
-  let tiled_z = @math.cos(angle_z).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
+  let tiled_z = Float::from_double(@math.cos(angle_z))
   return simplex3d([tiled_x, tiled_y, tiled_z], perm_table, grads, scale)
 }
 
@@ -82,9 +82,9 @@ fn tileable_fbm3d(
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
   let angle_z = 2.0 * pi * p[2].to_double() / depth.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
-  let tiled_z = @math.cos(angle_z).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
+  let tiled_z = Float::from_double(@math.cos(angle_z))
   return fbm3d(
     [tiled_x, tiled_y, tiled_z],
     octaves,
@@ -112,10 +112,10 @@ fn tileable_noise4d(
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
   let angle_z = 2.0 * pi * p[2].to_double() / depth.to_double()
   let angle_w = 2.0 * pi * p[3].to_double() / time.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
-  let tiled_z = @math.cos(angle_z).to_float()
-  let tiled_w = @math.sin(angle_w).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
+  let tiled_z = Float::from_double(@math.cos(angle_z))
+  let tiled_w = Float::from_double(@math.sin(angle_w))
   return simplex4d([tiled_x, tiled_y, tiled_z, tiled_w], perm_table, grads, scale)
 }
 
@@ -138,10 +138,10 @@ fn tileable_fbm4d(
   let angle_y = 2.0 * pi * p[1].to_double() / height.to_double()
   let angle_z = 2.0 * pi * p[2].to_double() / depth.to_double()
   let angle_w = 2.0 * pi * p[3].to_double() / time.to_double()
-  let tiled_x = @math.cos(angle_x).to_float()
-  let tiled_y = @math.sin(angle_y).to_float()
-  let tiled_z = @math.cos(angle_z).to_float()
-  let tiled_w = @math.sin(angle_w).to_float()
+  let tiled_x = Float::from_double(@math.cos(angle_x))
+  let tiled_y = Float::from_double(@math.sin(angle_y))
+  let tiled_z = Float::from_double(@math.cos(angle_z))
+  let tiled_w = Float::from_double(@math.sin(angle_w))
   return fbm4d(
     [tiled_x, tiled_y, tiled_z, tiled_w],
     octaves,
