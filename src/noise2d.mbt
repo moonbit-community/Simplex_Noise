@@ -1,9 +1,10 @@
 // 2D Simplex Noise 核心函数
+///|
 fn simplex2d(
-  p : Array[Float], 
-  perm_table : Array[Int], 
-  grads : Array[Array[Float]], 
-  scale: Float // 频率控制
+  p : Array[Float],
+  perm_table : Array[Int],
+  grads : Array[Array[Float]],
+  scale : Float, // 频率控制
 ) -> Float {
   let f2 = 0.5 * (@math.sqrt(3.0) - 1.0)
   let g2 = (3.0 - @math.sqrt(3.0)) / 6.0
@@ -54,5 +55,3 @@ fn simplex2d(
   // 缩放到 [-1, 1] 范围
   20 * Float::from_double(n0 + n1 + n2)
 }
-
-

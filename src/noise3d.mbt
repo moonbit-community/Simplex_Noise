@@ -1,8 +1,9 @@
+///|
 fn simplex3d(
-  p: Array[Float], 
-  perm_table: Array[Int], 
-  grads: Array[Array[Float]], 
-  scale: Float 
+  p : Array[Float],
+  perm_table : Array[Int],
+  grads : Array[Array[Float]],
+  scale : Float,
 ) -> Float {
   let f3 = 1.0 / 3.0
   let g3 = 1.0 / 6.0
@@ -16,7 +17,8 @@ fn simplex3d(
   let j = @math.floor(ny.to_double() + s).to_int()
   let k = @math.floor(nz.to_double() + s).to_int()
 
-  let t = (Float::from_int(i) + Float::from_int(j) + Float::from_int(k)) * Float::from_double(g3)
+  let t = (Float::from_int(i) + Float::from_int(j) + Float::from_int(k)) *
+    Float::from_double(g3)
   let x0 = nx - (Float::from_int(i) - t)
   let y0 = ny - (Float::from_int(j) - t)
   let z0 = nz - (Float::from_int(k) - t)
@@ -35,17 +37,15 @@ fn simplex3d(
       ijk1 = [0, 0, 1]
       ijk2 = [1, 0, 1]
     }
+  } else if y0 < z0 {
+    ijk1 = [0, 0, 1]
+    ijk2 = [0, 1, 1]
+  } else if x0 < z0 {
+    ijk1 = [0, 1, 0]
+    ijk2 = [0, 1, 1]
   } else {
-    if y0 < z0 {
-      ijk1 = [0, 0, 1]
-      ijk2 = [0, 1, 1]
-    } else if x0 < z0 {
-      ijk1 = [0, 1, 0]
-      ijk2 = [0, 1, 1]
-    } else {
-      ijk1 = [0, 1, 0]
-      ijk2 = [1, 1, 0]
-    }
+    ijk1 = [0, 1, 0]
+    ijk2 = [1, 1, 0]
   }
 
   let x1 = x0 - Float::from_double(ijk1[0].to_double() + g3)
@@ -94,6 +94,5 @@ fn simplex3d(
     n3 = t3_2 * t3_2 * (gi3[0] * x3 + gi3[1] * y3 + gi3[2] * z3).to_double()
   }
 
-  32.0 * Float::from_double(n0 + n1 + n2 + n3) 
+  32.0 * Float::from_double(n0 + n1 + n2 + n3)
 }
-

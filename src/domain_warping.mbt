@@ -1,10 +1,18 @@
-fn clamp(x: Float, min: Float, max: Float) -> Float {
-  if x < min { min }
-  else if x > max { max }
-  else { x }
+///|
+fn clamp(x : Float, min : Float, max : Float) -> Float {
+  if x < min {
+    min
+  } else if x > max {
+    max
+  } else {
+    x
+  }
 }
+
+///|
 let maxwarp : Ref[Float] = { val: 2.0 }
 
+///|
 pub fn new_maxwarp(a : Float) -> Float {
   if a < 0 {
     return maxwarp.val
@@ -12,12 +20,14 @@ pub fn new_maxwarp(a : Float) -> Float {
   maxwarp.val = a
   maxwarp.val
 }
+
+///|
 fn warp2d(
   grads : Array[Array[Float]],
   p : Array[Float],
   seed : Int,
   scale : Float,
-  strength : Float
+  strength : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = simplex2d([p[0], p[1]], perm, grads, scale)
@@ -31,8 +41,7 @@ fn warp2d(
   simplex2d(warped, perm, grads, 1)
 }
 
-
-
+///|
 fn warp_fbm2d(
   grads : Array[Array[Float]],
   p : Array[Float],
@@ -41,7 +50,7 @@ fn warp_fbm2d(
   strength : Float,
   octaves : Int,
   persistence : Float,
-  lacunarity : Float
+  lacunarity : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = fbm2d(
@@ -79,12 +88,14 @@ fn warp_fbm2d(
 //
 //
 //3D
+
+///|
 fn warp3d(
   grads : Array[Array[Float]],
   p : Array[Float],
   seed : Int,
   scale : Float,
-  strength : Float
+  strength : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = simplex3d([p[0], p[1], p[2]], perm, grads, scale)
@@ -110,8 +121,7 @@ fn warp3d(
   simplex3d(warped, perm, grads, 1)
 }
 
-
-
+///|
 fn warp_fbm3d(
   grads : Array[Array[Float]],
   p : Array[Float],
@@ -120,7 +130,7 @@ fn warp_fbm3d(
   strength : Float,
   octaves : Int,
   persistence : Float,
-  lacunarity : Float
+  lacunarity : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = fbm3d(
@@ -168,12 +178,14 @@ fn warp_fbm3d(
 //
 //
 //4D
+
+///|
 fn warp4d(
   grads : Array[Array[Float]],
   p : Array[Float],
   seed : Int,
   scale : Float,
-  strength : Float
+  strength : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = simplex4d([p[0], p[1], p[2], p[3]], perm, grads, scale)
@@ -206,7 +218,7 @@ fn warp4d(
   simplex4d(warped, perm, grads, 1)
 }
 
-
+///|
 fn warp_fbm4d(
   grads : Array[Array[Float]],
   p : Array[Float],
@@ -215,7 +227,7 @@ fn warp_fbm4d(
   strength : Float,
   octaves : Int,
   persistence : Float,
-  lacunarity : Float
+  lacunarity : Float,
 ) -> Float {
   let perm = init_noise(seed)
   let warp_x = fbm4d(
@@ -264,5 +276,3 @@ fn warp_fbm4d(
   maxwarp.val = 2.0
   fbm4d(warped, octaves, persistence, lacunarity, perm, grads, 1)
 }
-
-

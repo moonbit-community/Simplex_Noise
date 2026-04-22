@@ -1,11 +1,14 @@
 // 简单的线性同余生成器
-fn random_int(seed: Int) -> Int {
+///|
+fn random_int(seed : Int) -> Int {
   (seed * 1103515245 + 12345) & 0x7fffffff
 }
 
 // 自定义洗牌，基于 seed 控制随机性
-fn shuffle(arr: Array[Int], seed: Int) -> Array[Int] {
-  let result = [..arr]  // 深拷贝
+
+///|
+fn shuffle(arr : Array[Int], seed : Int) -> Array[Int] {
+  let result = [..arr] // 深拷贝
   let mut s = seed
   let n = result.length()
 
@@ -17,14 +20,16 @@ fn shuffle(arr: Array[Int], seed: Int) -> Array[Int] {
     result[i] = result[j]
     result[j] = temp
 
-    if i == 0 { break }
+    if i == 0 {
+      break
+    }
     i = i - 1
   }
   result
 }
 
-
-fn make_range(start: Int, end: Int) -> Array[Int] {
+///|
+fn make_range(start : Int, end : Int) -> Array[Int] {
   if start > end {
     []
   } else {
@@ -32,9 +37,10 @@ fn make_range(start: Int, end: Int) -> Array[Int] {
   }
 }
 
-
 // 初始化置换表
-fn init_permutation(seed: Int) -> Array[Int] {
+
+///|
+fn init_permutation(seed : Int) -> Array[Int] {
   let base = make_range(0, 255)
   let shuffled = shuffle(base, seed)
   shuffled
