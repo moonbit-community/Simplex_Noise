@@ -1,11 +1,6 @@
 fn save_png(path : String, png_data : Bytes) -> Bool raise @fs.IOError {
-  match (try? @fs.write_bytes_to_file(path, png_data)) {
-    Ok(_) => true
-    Err(e) => {
-      raise e
-      false
-    }
-  }
+  @fs.write_bytes_to_file(path, png_data)
+  true
 }
 
 // 渐变色映射工具
