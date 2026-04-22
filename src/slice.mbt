@@ -1,4 +1,6 @@
-priv suberror Slice String
+priv suberror Slice {
+  Slice(String)
+}
 
 pub fn noise3d_slices(
   base_path : String,
@@ -137,4 +139,3 @@ pub fn fbm4d_slices(
     }
   }
 }
-
