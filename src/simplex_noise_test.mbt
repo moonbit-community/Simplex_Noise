@@ -12,7 +12,7 @@ test "Basic Simplex Noise Image" {
 ///|
 test "fBm Noise Image (Cloud/Heightmap)" {
   let config = @ZSeanYves/SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create2d(123)
+  let (_, grads) = @SimplexNoise.create2d(123)
   let ok = @ZSeanYves/SimplexNoise.fbm2d_image(
     "./src/examples/gray/fbm/noise2d.png", 256, 256, 123, grads, config, false, true,
   )
@@ -21,7 +21,7 @@ test "fBm Noise Image (Cloud/Heightmap)" {
 
 ///|
 test "Basic Simplex Noise Image (Color)" {
-  let (_, grads) = create2d(42)
+  let (_, grads) = @SimplexNoise.create2d(42)
   let ok = @ZSeanYves/SimplexNoise.noise2d_image(
     "./src/examples/color/basic/noise2d_color.png", 256, 256, 0.05, 42, grads, false,
     false,
@@ -31,8 +31,8 @@ test "Basic Simplex Noise Image (Color)" {
 
 ///|
 test "fBm Noise Image (Color)" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create2d(123)
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create2d(123)
   let ok = @ZSeanYves/SimplexNoise.fbm2d_image(
     "./src/examples/color/fbm/noise2d_color.png", 256, 256, 123, grads, config, false,
     false,
@@ -42,8 +42,8 @@ test "fBm Noise Image (Color)" {
 
 ///|
 test "Basic Simplex Noise with Warp" {
-  let (_, grads) = create2d(42)
-  let ok = noise2d_image(
+  let (_, grads) = @SimplexNoise.create2d(42)
+  let ok = @SimplexNoise.noise2d_image(
     "./src/examples/warp/noise2d_warp.png",
     256,
     256,
@@ -59,9 +59,9 @@ test "Basic Simplex Noise with Warp" {
 
 ///|
 test "fBm Noise with Warp (color)" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create2d(123)
-  let ok = fbm2d_image(
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create2d(123)
+  let ok = @SimplexNoise.fbm2d_image(
     "./src/examples/warp/fbm2d_warp.png",
     256,
     256,
@@ -77,7 +77,7 @@ test "fBm Noise with Warp (color)" {
 
 ///|
 test "tileable Simplex Noise Image " {
-  let (_, grads) = create2d(42)
+  let (_, grads) = @SimplexNoise.create2d(42)
   let ok = @ZSeanYves/SimplexNoise.tnoise2d_image(
     "./src/examples/tileable/tnoise2d_color.png", 256, 256, 0.3, 42, grads, false,
   )
@@ -86,8 +86,8 @@ test "tileable Simplex Noise Image " {
 
 ///|
 test "tileable fBm Noise Image " {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create2d(123)
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create2d(123)
   let ok = @ZSeanYves/SimplexNoise.tfbm2d_image(
     "./src/examples/tileable/tfbm2d_gray.png", 256, 256, 123, grads, config, false,
   )
@@ -96,14 +96,14 @@ test "tileable fBm Noise Image " {
 
 ///|
 test "Permutation Table Initialization" {
-  let (perm, _) = create2d(7)
+  let (perm, _) = @SimplexNoise.create2d(7)
   assert_eq(perm.length(), 512)
   assert_eq(perm[0] >= 0 && perm[0] < 256, true)
 }
 
 ///|
 test "Gradient Vector Validity" {
-  for g in grads2d {
+  for g in @SimplexNoise.grads2d {
     let len = (g[0] * g[0] + g[1] * g[1]).sqrt()
     assert_eq(len >= 0.9 && len <= 1.1, true) // 梯度噪声向量
   }
@@ -111,10 +111,10 @@ test "Gradient Vector Validity" {
 
 ///|
 test "2D Simplex Noise Output Range" {
-  let (perm, grads) = create2d(99)
+  let (perm, grads) = @SimplexNoise.create2d(99)
   for i in 0..<100 {
     for j in 0..<100 {
-      let val = noise2d(
+      let val = @SimplexNoise.noise2d(
         [Float::from_int(i), Float::from_int(j)],
         perm,
         grads,
@@ -146,8 +146,8 @@ test "3D Simplex Noise Slice Image" {
 
 ///|
 test "3D fBm Noise Slice Image" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create3d(123)
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create3d(123)
   let ok = @ZSeanYves/SimplexNoise.fbm3d_image(
     "./src/examples/gray/fbm/noise3d.png", 256, 256, 0.3, 123, grads, config, false,
     true,
@@ -157,8 +157,8 @@ test "3D fBm Noise Slice Image" {
 
 ///|
 test "3D Simplex Noise Slice Image (Color)" {
-  let (_, grads) = create3d(42)
-  let ok = noise3d_image(
+  let (_, grads) = @SimplexNoise.create3d(42)
+  let ok = @SimplexNoise.noise3d_image(
     "./src/examples/color/basic/noise3d_color.png", 256, 256, 0.05, 0.3, 42, grads,
     false, false,
   )
@@ -167,9 +167,9 @@ test "3D Simplex Noise Slice Image (Color)" {
 
 ///|
 test "3D fBm Noise Slice Image (Color)" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create3d(123)
-  let ok = fbm3d_image(
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create3d(123)
+  let ok = @SimplexNoise.fbm3d_image(
     "./src/examples/color/fbm/noise3d_color.png", 256, 256, 0.3, 123, grads, config,
     false, false,
   )
@@ -178,8 +178,8 @@ test "3D fBm Noise Slice Image (Color)" {
 
 ///|
 test "3D Simplex Noise Slices Batch Output" {
-  let (_, grads) = create3d(42)
-  noise3d_slices(
+  let (_, grads) = @SimplexNoise.create3d(42)
+  @SimplexNoise.noise3d_slices(
     "./src/examples/slice_3d/gray/basic", 128, 128, 0.05, 42, grads, false, true,
     10, // 切片数量
   )
@@ -187,9 +187,9 @@ test "3D Simplex Noise Slices Batch Output" {
 
 ///|
 test "3D fBm Noise Slices Batch Output" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (_, grads) = create3d(123)
-  fbm3d_slices(
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create3d(123)
+  @SimplexNoise.fbm3d_slices(
     "./src/examples/slice_3d/gray/fbm", 128, 128, 123, grads, config, false, true,
     10,
   )
@@ -197,8 +197,8 @@ test "3D fBm Noise Slices Batch Output" {
 
 ///|
 test "3D Simplex Noise Slices Batch Output (Color)" {
-  let (_, grads) = create3d(42)
-  noise3d_slices(
+  let (_, grads) = @SimplexNoise.create3d(42)
+  @SimplexNoise.noise3d_slices(
     "./src/examples/slice_3d/color/basic", 128, 128, 0.05, 42, grads, false, false,
     10,
   )
@@ -206,9 +206,9 @@ test "3D Simplex Noise Slices Batch Output (Color)" {
 
 ///|
 test "3D fBm Noise Slices Batch Output (Color)" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (_, grads) = create3d(123)
-  fbm3d_slices(
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create3d(123)
+  @SimplexNoise.fbm3d_slices(
     "./src/examples/slice_3d/color/fbm", 128, 128, 123, grads, config, false, false,
     10,
   )
@@ -216,8 +216,8 @@ test "3D fBm Noise Slices Batch Output (Color)" {
 
 ///|
 test "Basic Simplex 3D Noise with Warp" {
-  let (_, grads) = create3d(42)
-  let ok = noise3d_image(
+  let (_, grads) = @SimplexNoise.create3d(42)
+  let ok = @SimplexNoise.noise3d_image(
     "./src/examples/warp/noise3d_warp.png",
     256,
     256,
@@ -234,9 +234,9 @@ test "Basic Simplex 3D Noise with Warp" {
 
 ///|
 test "fBm 3D Noise with Warp" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create3d(123)
-  let ok = fbm3d_image(
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create3d(123)
+  let ok = @SimplexNoise.fbm3d_image(
     "./src/examples/warp/fbm3d_warp.png",
     256,
     256,
@@ -253,7 +253,7 @@ test "fBm 3D Noise with Warp" {
 
 ///|
 test "tileable Simplex Noise 3D Image" {
-  let (_, grads) = create3d(101)
+  let (_, grads) = @SimplexNoise.create3d(101)
   let ok = @ZSeanYves/SimplexNoise.tnoise3d_image(
     "./src/examples/tileable/tnoise3d_color.png", 256, 256, 256, 0.3, 101, 0, grads,
     false,
@@ -263,8 +263,8 @@ test "tileable Simplex Noise 3D Image" {
 
 ///|
 test "tileable fBm Noise 3D Image" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.02)
-  let (_, grads) = create3d(202)
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.02)
+  let (_, grads) = @SimplexNoise.create3d(202)
   let ok = @ZSeanYves/SimplexNoise.tfbm3d_image(
     "./src/examples/tileable/tfbm3d_gray.png", 256, 256, 256, 202, 0, grads, config,
     false,
@@ -274,7 +274,7 @@ test "tileable fBm Noise 3D Image" {
 
 ///|
 test "Simplex Noise 3D - Output Range & Smoothness" {
-  let (perm, grads) = create3d(42)
+  let (perm, grads) = @SimplexNoise.create3d(42)
   let mut min_val = 1_000_000_000.0
   let mut max_val = -1_000_000_000.0
   let mut last = 0.0
@@ -307,8 +307,8 @@ test "Simplex Noise 3D - Output Range & Smoothness" {
 
 ///|
 test "fBm Noise 3D - Output Range & Smoothness" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (perm, grads) = create3d(42)
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (perm, grads) = @SimplexNoise.create3d(42)
   let mut min_val = 1_000_000_000.0
   let mut max_val = -1_000_000_000.0
   let mut last = 0.0
@@ -364,8 +364,8 @@ test "4D Simplex Noise Slice Image" {
 
 ///|
 test "4D fBm Noise Slice Image" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create4d(123)
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create4d(123)
   let ok = @ZSeanYves/SimplexNoise.fbm4d_image(
     "./src/examples/gray/fbm/noise4d.png", 256, 256, 128, 128, 123, grads, config,
     false, true,
@@ -375,8 +375,8 @@ test "4D fBm Noise Slice Image" {
 
 ///|
 test "4D Simplex Noise Slice Image (Color)" {
-  let (_, grads) = create4d(42)
-  let ok = noise4d_image(
+  let (_, grads) = @SimplexNoise.create4d(42)
+  let ok = @SimplexNoise.noise4d_image(
     "./src/examples/color/basic/noise4d_color.png", 256, 256, 0.05, 0.3, 0.6, 42,
     grads, false, false,
   )
@@ -385,9 +385,9 @@ test "4D Simplex Noise Slice Image (Color)" {
 
 ///|
 test "4D fBm Noise Slice Image (Color)" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create4d(123)
-  let ok = fbm4d_image(
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create4d(123)
+  let ok = @SimplexNoise.fbm4d_image(
     "./src/examples/color/fbm/noise4d_color.png", 256, 256, 128, 128, 123, grads,
     config, false, false,
   )
@@ -396,8 +396,8 @@ test "4D fBm Noise Slice Image (Color)" {
 
 ///|
 test "4D Simplex Noise Slices Batch Output" {
-  let (_, grads) = create4d(42)
-  noise4d_slices(
+  let (_, grads) = @SimplexNoise.create4d(42)
+  @SimplexNoise.noise4d_slices(
     "./src/examples/slice_4d/gray/basic", 128, 128, 0.05, 64, // 固定 w，切 z 轴
      42, grads, false, true, 10,
   )
@@ -405,9 +405,9 @@ test "4D Simplex Noise Slices Batch Output" {
 
 ///|
 test "4D fBm Noise Slices Batch Output" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (_, grads) = create4d(123)
-  fbm4d_slices(
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create4d(123)
+  @SimplexNoise.fbm4d_slices(
     "./src/examples/slice_4d/gray/fbm", 128, 128, 64, // 固定 w
      123, grads, config, false, true, 10,
   )
@@ -415,8 +415,8 @@ test "4D fBm Noise Slices Batch Output" {
 
 ///|
 test "4D Simplex Noise Slices Batch Output (Color)" {
-  let (_, grads) = create4d(42)
-  noise4d_slices(
+  let (_, grads) = @SimplexNoise.create4d(42)
+  @SimplexNoise.noise4d_slices(
     "./src/examples/slice_4d/color/basic", 128, 128, 0.05, 64, // 固定 w
      42, grads, false, false, 10,
   )
@@ -424,9 +424,9 @@ test "4D Simplex Noise Slices Batch Output (Color)" {
 
 ///|
 test "4D fBm Noise Slices Batch Output (Color)" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (_, grads) = create4d(123)
-  fbm4d_slices(
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create4d(123)
+  @SimplexNoise.fbm4d_slices(
     "./src/examples/slice_4d/color/fbm", 128, 128, 64, // 固定 w
      123, grads, config, false, false, 10,
   )
@@ -434,8 +434,8 @@ test "4D fBm Noise Slices Batch Output (Color)" {
 
 ///|
 test "Basic Simplex 4D Noise with Warp" {
-  let (_, grads) = create4d(42)
-  let ok = noise4d_image(
+  let (_, grads) = @SimplexNoise.create4d(42)
+  let ok = @SimplexNoise.noise4d_image(
     "./src/examples/warp/noise4d_warp.png",
     256,
     256,
@@ -453,9 +453,9 @@ test "Basic Simplex 4D Noise with Warp" {
 
 ///|
 test "fBm 4D Noise with Warp" {
-  let config = new_NoiseConfig(5, 0.5, 2.0, 0.03)
-  let (_, grads) = create4d(123)
-  let ok = fbm4d_image(
+  let config = @SimplexNoise.new_NoiseConfig(5, 0.5, 2.0, 0.03)
+  let (_, grads) = @SimplexNoise.create4d(123)
+  let ok = @SimplexNoise.fbm4d_image(
     "./src/examples/warp/fbm4d_warp.png",
     256,
     256,
@@ -473,7 +473,7 @@ test "fBm 4D Noise with Warp" {
 
 ///|
 test "tileable Simplex Noise 4D Image" {
-  let (_, grads) = create4d(303)
+  let (_, grads) = @SimplexNoise.create4d(303)
   let ok = @ZSeanYves/SimplexNoise.tnoise4d_image(
     "./src/examples/tileable/tnoise4d_color.png", 256, 256, 256, 256, 128, 128, 303,
     grads, 0.3, false,
@@ -483,8 +483,8 @@ test "tileable Simplex Noise 4D Image" {
 
 ///|
 test "tileable fBm Noise 4D Image" {
-  let config = new_NoiseConfig(8, 0.6, 2.1, 0.04)
-  let (_, grads) = create4d(404)
+  let config = @SimplexNoise.new_NoiseConfig(8, 0.6, 2.1, 0.04)
+  let (_, grads) = @SimplexNoise.create4d(404)
   let ok = @ZSeanYves/SimplexNoise.tfbm4d_image(
     "./src/examples/tileable/tfbm4d_gray.png", 256, 256, 256, 256, 128, 128, 404,
     grads, config, false,
@@ -494,7 +494,7 @@ test "tileable fBm Noise 4D Image" {
 
 ///|
 test "Simplex Noise 4D - Output Range & Smoothness" {
-  let (perm, grads) = create4d(123)
+  let (perm, grads) = @SimplexNoise.create4d(123)
   let mut min_val = 1_000_000_000.0
   let mut max_val = -1_000_000_000.0
   let mut last = 0.0
@@ -534,8 +534,8 @@ test "Simplex Noise 4D - Output Range & Smoothness" {
 
 ///|
 test "fBm Noise 4D - Output Range & Smoothness" {
-  let config = new_NoiseConfig(4, 0.5, 2.0, 0.03)
-  let (perm, grads) = create4d(456)
+  let config = @SimplexNoise.new_NoiseConfig(4, 0.5, 2.0, 0.03)
+  let (perm, grads) = @SimplexNoise.create4d(456)
   let mut min_val = 1_000_000_000.0
   let mut max_val = -1_000_000_000.0
   let mut last = 0.0
@@ -617,7 +617,7 @@ test "compare with Python fbm snoise2" {
     [0.0, 1.0],
     [0.0, -1.0],
   ]
-  let config = new_NoiseConfig(6, 0.5, 2.0, 1.0)
+  let config = @SimplexNoise.new_NoiseConfig(6, 0.5, 2.0, 1.0)
   let ok = @ZSeanYves/SimplexNoise.fbm2d_image(
     "./src/examples/comparison/fbm2d_moonbit.png", 256, 256, 42, grads, config, false,
     true,
@@ -672,7 +672,7 @@ test "compare with Python fbm snoise3" {
     [1.0, -1.0, -1.0],
     [-1.0, 1.0, -1.0],
   ]
-  let config = new_NoiseConfig(6, 0.5, 2.0, 1.0)
+  let config = @SimplexNoise.new_NoiseConfig(6, 0.5, 2.0, 1.0)
   let ok = @ZSeanYves/SimplexNoise.fbm3d_image(
     "./src/examples/comparison/fbm3d_moonbit.png", 256, 256, 128, 42, grads, config,
     false, true,
@@ -727,7 +727,7 @@ test "compare with Python fbm snoise4" {
     [1.0, -1.0, -1.0, -1.0],
     [-1.0, 1.0, -1.0, -1.0],
   ]
-  let config = new_NoiseConfig(6, 0.5, 2.0, 1.0)
+  let config = @SimplexNoise.new_NoiseConfig(6, 0.5, 2.0, 1.0)
   let ok = @ZSeanYves/SimplexNoise.fbm4d_image(
     "./src/examples/comparison/fbm4d_moonbit.png", 256, 256, 128, 128, 42, grads,
     config, false, true,
