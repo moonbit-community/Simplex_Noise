@@ -1,7 +1,7 @@
 ///|
 fn simplex3d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
 ) -> Float {

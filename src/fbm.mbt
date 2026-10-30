@@ -1,13 +1,14 @@
 // octaves: 八度数，决定叠加层数
 // persistence: 振幅衰减因子
 // lacunarity: 频率增长因子
+
 ///|
 pub fn fbm2d(
   p : Array[Float],
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   base_scale : Float, // 初始频率
 ) -> Float {
@@ -29,10 +30,10 @@ pub fn fbm2d(
 ///|
 pub fn fbm3d(
   p : Array[Float],
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   base_scale : Float,
 ) -> Float {
@@ -54,10 +55,10 @@ pub fn fbm3d(
 ///|
 pub fn fbm4d(
   p : Array[Float],
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   base_scale : Float,
 ) -> Float {

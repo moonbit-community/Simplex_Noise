@@ -1,4 +1,5 @@
 //2D
+
 ///|
 test "Basic Simplex Noise Image" {
   let (_, grads) = @ZSeanYves/SimplexNoise.create2d(42)
