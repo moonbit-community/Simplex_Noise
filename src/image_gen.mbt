@@ -59,10 +59,10 @@ fn noise_to_color(val : Float) -> @color.RGBA {
 
 ///|
 fn generate_noise_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   useWarp : Bool, // 添加 useWarp 参数来控制是否使用 warp2d
   isGrayScale : Bool, // 是否生成灰度图
@@ -140,11 +140,11 @@ fn generate_noise_png_buffer(
 
 ///|
 fn generate_fbm_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
-  seed : Int,
-  octaves : Int,
+  seed : Int32,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
@@ -233,11 +233,11 @@ fn generate_fbm_png_buffer(
 
 ///|
 fn generate_noise3d_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
   z : Float,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   useWarp : Bool,
   isGrayScale : Bool,
@@ -312,12 +312,12 @@ fn generate_noise3d_png_buffer(
 
 ///|
 fn generate_fbm3d_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
   z : Float,
-  seed : Int,
-  octaves : Int,
+  seed : Int32,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
@@ -406,12 +406,12 @@ fn generate_fbm3d_png_buffer(
 
 ///|
 fn generate_noise4d_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
   z : Float,
   w : Float,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   useWarp : Bool,
   isGrayScale : Bool,
@@ -486,13 +486,13 @@ fn generate_noise4d_png_buffer(
 
 ///|
 fn generate_fbm4d_png_buffer(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
   z : Float,
   w : Float,
-  seed : Int,
-  octaves : Int,
+  seed : Int32,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
   grads : Array[Array[Float]],
@@ -581,10 +581,10 @@ fn generate_fbm4d_png_buffer(
 
 ///|
 fn generate_tileable_noise2d_image(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   scale : Float,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   pi : Double,
   isGrayScale : Bool,
@@ -634,10 +634,10 @@ fn generate_tileable_noise2d_image(
 
 ///|
 fn generate_tileable_fbm2d_image(
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   config : NoiseConfig,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   pi : Double,
   isGrayScale : Bool,
@@ -705,12 +705,12 @@ fn generate_tileable_fbm2d_image(
 
 ///|
 fn generate_tileable_noise3d_image(
-  width : Int,
-  height : Int,
-  depth : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
   z : Float,
   scale : Float,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   pi : Double,
   isGrayScale : Bool,
@@ -760,12 +760,12 @@ fn generate_tileable_noise3d_image(
 
 ///|
 fn generate_tileable_fbm3d_image(
-  width : Int,
-  height : Int,
-  depth : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
   z : Float,
   config : NoiseConfig,
-  seed : Int,
+  seed : Int32,
   grads : Array[Array[Float]],
   pi : Double,
   isGrayScale : Bool,
@@ -835,13 +835,13 @@ fn generate_tileable_fbm3d_image(
 
 ///|
 fn generate_tileable_noise4d_image(
-  width : Int,
-  height : Int,
-  depth : Int,
-  time : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
+  time : Int32,
   z : Float,
   w : Float,
-  seed : Int,
+  seed : Int32,
   scale : Float,
   grads : Array[Array[Float]],
   pi : Double,
@@ -892,13 +892,13 @@ fn generate_tileable_noise4d_image(
 
 ///|
 fn generate_tileable_fbm4d_image(
-  width : Int,
-  height : Int,
-  depth : Int,
-  time : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
+  time : Int32,
   z : Float,
   w : Float,
-  seed : Int,
+  seed : Int32,
   config : NoiseConfig,
   grads : Array[Array[Float]],
   pi : Double,

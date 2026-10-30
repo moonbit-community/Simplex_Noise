@@ -1,11 +1,11 @@
 ///|
 fn tileable_noise2d(
   p : Array[Float], // 原始坐标
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
@@ -20,14 +20,14 @@ fn tileable_noise2d(
 ///|
 fn tileable_fbm2d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
@@ -51,12 +51,12 @@ fn tileable_fbm2d(
 ///|
 fn tileable_noise3d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  width : Int,
-  height : Int,
-  depth : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
@@ -73,15 +73,15 @@ fn tileable_noise3d(
 ///|
 fn tileable_fbm3d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  width : Int,
-  height : Int,
-  depth : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
@@ -106,13 +106,13 @@ fn tileable_fbm3d(
 ///|
 fn tileable_noise4d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  width : Int,
-  height : Int,
-  depth : Int,
-  time : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
+  time : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()
@@ -136,16 +136,16 @@ fn tileable_noise4d(
 ///|
 fn tileable_fbm4d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
-  width : Int,
-  height : Int,
-  depth : Int,
-  time : Int,
+  width : Int32,
+  height : Int32,
+  depth : Int32,
+  time : Int32,
   pi : Double,
 ) -> Float {
   let angle_x = 2.0 * pi * p[0].to_double() / width.to_double()

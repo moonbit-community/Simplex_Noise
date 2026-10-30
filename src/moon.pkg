@@ -1,10 +1,10 @@
 import {
-  "gmlewis/image" @image,
-  "gmlewis/image/png" @png,
-  "gmlewis/image/color" @color,
-  "gmlewis/io" @io,
+  "gmlewis/image",
+  "gmlewis/image/png",
+  "gmlewis/image/color",
+  "gmlewis/io",
   "Kaida-Amethyst/math",
-  "moonbitlang/x/fs" @fs,
+  "moonbitlang/x/fs",
 }
 
 options(

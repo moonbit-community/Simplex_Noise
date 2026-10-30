@@ -10,7 +10,7 @@ fn clamp(x : Float, min : Float, max : Float) -> Float {
 }
 
 ///|
-let maxwarp : Ref[Float] = { val: 2.0 }
+let maxwarp : Ref[Float] = { val: 2.0, }
 
 ///|
 pub fn new_maxwarp(a : Float) -> Float {
@@ -25,7 +25,7 @@ pub fn new_maxwarp(a : Float) -> Float {
 fn warp2d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
 ) -> Float {
@@ -45,10 +45,10 @@ fn warp2d(
 fn warp_fbm2d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
 ) -> Float {
@@ -93,7 +93,7 @@ fn warp_fbm2d(
 fn warp3d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
 ) -> Float {
@@ -125,10 +125,10 @@ fn warp3d(
 fn warp_fbm3d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
 ) -> Float {
@@ -183,7 +183,7 @@ fn warp_fbm3d(
 fn warp4d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
 ) -> Float {
@@ -222,10 +222,10 @@ fn warp4d(
 fn warp_fbm4d(
   grads : Array[Array[Float]],
   p : Array[Float],
-  seed : Int,
+  seed : Int32,
   scale : Float,
   strength : Float,
-  octaves : Int,
+  octaves : Int32,
   persistence : Float,
   lacunarity : Float,
 ) -> Float {

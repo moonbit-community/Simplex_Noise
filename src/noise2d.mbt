@@ -1,8 +1,9 @@
 // 2D Simplex Noise 核心函数
+
 ///|
 fn simplex2d(
   p : Array[Float],
-  perm_table : Array[Int],
+  perm_table : Array[Int32],
   grads : Array[Array[Float]],
   scale : Float, // 频率控制
 ) -> Float {
